@@ -24,22 +24,22 @@ const log = require("./logger/log.js");
 const PORT = process.env.PORT || 3000;
 
 function startProject() {
-	const child = spawn("node", ["Goat.js"], {
-		cwd: __dirname,
-		stdio: "inherit",
-		shell: true,
-		env: {
-			...process.env, // Preserve existing environment variables
-			PORT: PORT      // Add the PORT variable
-		}
-	});
+  const child = spawn("node", ["Goat.js"], {
+    cwd: __dirname,
+    stdio: "inherit",
+    shell: true,
+    env: {
+      ...process.env,
+      PORT: PORT
+    }
+  });
 
-	child.on("close", (code) => {
-		if (code == 2) {
-			log.info("Restarting Project...");
-			startProject();
-		}
-	});
+  child.on("close", (code) => {
+    if (code == 2) {
+      log.info("Restarting Project...");
+      startProject();
+    }
+  });
 }
 
 startProject();
